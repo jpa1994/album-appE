@@ -1,6 +1,7 @@
 // Build server
 const express = require('express')
 const server = express()
+const router = require('./routes/router')
 const PORT = process.env.PORT || 3000
 
 // Handle security
@@ -19,9 +20,11 @@ server.use(helmet.contentSecurityPolicy({
     }
 }))
 
-
 server.use(cors())
 server.use(express.json())
 server.use(express.urlencoded({ extended: true}))
+
+// localhost:3000
+server.use('/', router)
 
 server.listen(PORT, ()=> console.log`The Dodgers have won the 2025 World Series!!!`)
