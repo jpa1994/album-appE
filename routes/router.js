@@ -10,6 +10,8 @@ router.get('/api', (req, res)=> {
     })
 })
 
+router.use('/api/album', require('./api/albumRoutes'))
+
 // Error handling
 router.use((req, res, next)=> {
     res.status(404)
