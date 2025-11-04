@@ -5,11 +5,12 @@ const { albumDao: dao } = require('../../daos/dao')
 
 // http://localhost:3000/api/album
 router.get('/', (req, res)=> {
-    dao.findAll(req, res, dao.table)
+    // dao.findAll(req, res, dao.table)
+    dao.findAlbumInfo(res, dao.table)
 })
 
-router.get('/', (req, res)=> {
-    dao.findAll(req, res, dao.table)
+router.get('/sort/:sorter', (req, res)=> {
+    dao.sort(res, dao.table, req.params.sorter)
 })
 
 // http://localhost:3000/api/:id
