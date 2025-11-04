@@ -1,6 +1,24 @@
-GET http://localhost:3000/api/album
+# GET all albums
+// GET http://localhost:3000/api/album
 
 # GET single album
-GET http://localhost:3000/api/album/4
+// GET http://localhost:3000/api/album/4
 
-GET http://localhost:3000/api/album/sort/label_id
+# GET albums Order by
+// GET http://localhost:3000/api/album/sort/label_id
+
+# GET artists
+// GET http://localhost:3000/api/artist
+
+// GET http://localhost:3000/api/artist/sort/fName
+
+// GET http://localhost:3000/api/artist/3
+
+# GET bands
+// GET http://localhost:3000/api/band
+// GET http://localhost:3000/api/band/3
+
+
+# GET labels
+// GET http://localhost:3000/api/label
+// GET http://localhost:3000/api/label/3
