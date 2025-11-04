@@ -22,3 +22,5 @@
 # GET labels
 // GET http://localhost:3000/api/label
 // GET http://localhost:3000/api/label/3
+
+GET http://localhost:3000/api/album/get_albums/3
