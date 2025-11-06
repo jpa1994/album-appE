@@ -34,16 +34,6 @@ const daoCommon = {
             `SELECT * FROM ${table} WHERE ${table}_id = ${id};`,
             (error, rows)=> {
                 queryAction(res, error, rows, table)
-                // if (!error) {
-                //     res.json(rows)
-                // } else {
-                //     console.log(`DAO Error: ${error}`)
-                //     res.json({
-                //         "message": 'error',
-                //         'table': `${table}`,
-                //         'error': error
-                //     })
-                // }
             }
         )
     },
@@ -57,6 +47,37 @@ const daoCommon = {
                queryAction(res, error, rows, table)
             }
         )
+    },
+
+    create: (req, res, table)=> {
+
+        if(Object.keys(req.body).length ===0) {
+            // Ojbect.keys(obj) => array of keys
+            res.json({
+                "error": true,
+                "message": "No fields to create"
+            })
+        } else {
+            const fields = Object.keys(req.body)
+            const values = Object.values(req.body)
+
+            connect.execute(
+                `INSERT INTO ${table} SET ${fields.join(' = ?,')} = ?;`,
+                values,
+                (error, dbres)=> {
+                    if (!error) {
+                        res.json({
+                            Last_id: dbres.insertId
+                        })
+                    } else {
+                        console.log(`${table}Dao error: `, error)
+                    }
+                }
+            )
+        }
+        
+        // console.log(req)
+        // res.send('complete')
     }
 }
 

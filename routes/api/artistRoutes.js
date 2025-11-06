@@ -21,4 +21,9 @@ router.get('/:id', (req, res)=> {
     dao.findById(res, dao.table, req.params.id)
 })
 
+// http://localhost:3000/api/artist/create
+router.post('/create', (req, res)=> {
+    dao.create(req, res, dao.table)
+})
+
 module.exports = router
