@@ -17,13 +17,18 @@ router.get('/sort/:sorter', (req, res)=> {
     dao.sort(res, dao.table, req.params.sorter)
 })
 
+// localhost:3000/api/artist/:id // list id GET requests last
 router.get('/:id', (req, res)=> {
     dao.findById(res, dao.table, req.params.id)
 })
+
+// POST
 
 // http://localhost:3000/api/artist/create
 router.post('/create', (req, res)=> {
     dao.create(req, res, dao.table)
 })
+
+// PATCH
 
 module.exports = router

@@ -51,7 +51,9 @@ const daoCommon = {
 
     create: (req, res, table)=> {
 
-        if(Object.keys(req.body).length ===0) {
+        // req.body => {}
+
+        if(Object.keys(req.body).length === 0) {
             // Ojbect.keys(obj) => array of keys
             res.json({
                 "error": true,
@@ -61,8 +63,26 @@ const daoCommon = {
             const fields = Object.keys(req.body)
             const values = Object.values(req.body)
 
+            /**
+             * 
+             * req.body = {
+             *      name: 'Satch',
+             *      age: 46,
+             *      occupation: 'software',
+             *      favTeam: 'Dodgers'
+             * }
+             * 
+             * fields = [name, age, occupation, favTeam]
+             * values = ['Satch', 46, 'sofwatre engineeer', 'Dodgers']
+             * 
+             * fields[0} == name
+             * values [0] == 'Satch'
+             * 
+             * INSERT INTO table SET name = 'Satch', age = 46, ...
+             */
+
             connect.execute(
-                `INSERT INTO ${table} SET ${fields.join(' = ?,')} = ?;`,
+                `INSERT INTO ${table} SET ${fields.join(' = ?, ')} = ?;`,
                 values,
                 (error, dbres)=> {
                     if (!error) {
