@@ -34,4 +34,10 @@ router.patch('/update/:id', (req, res)=> {
     dao.update(req, res, dao.table)
 })
 
+// Danger Zone!!! DELETE
+router.delete('/delete/:id', (req, res)=> {
+    console.log(req.params.id)
+    dao.delete(res, dao.table, req.params.id)
+})
+
 module.exports = router

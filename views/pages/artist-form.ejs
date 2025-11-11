@@ -1,0 +1,45 @@
+<%- include('../partials/header') %>
+
+<main class="main" id="main">
+    <div class="container">
+        <h2 class="text-center text-capitalize">add an artist</h2>
+        <form 
+            action="http://localhost:3000/api/artist/create" 
+            method="post"
+            class="form" 
+            id="artistForm"
+        >
+        <div class="row mb-3">
+            <div class="col">
+                <label for="fName" class="form-label">
+                    first name
+                </label>
+                <input 
+                    type="text"
+                    id="fName"
+                    name="fName"
+                    class="form-control"
+                />
+            </div>
+            <div class="col">
+                <label for="lName" class="form-label">
+                    last name
+                </label>
+                <input 
+                    type="text"
+                    id="lName"
+                    name="lName"
+                    class="form-control"
+                />
+            </div>
+        </div>
+        <button 
+            class="btn btn-primary"
+            type="submit"
+            role="button"
+        >Add Artist</button>
+    </form>
+    </div>
+</main>
+
+<%- include('../partials/footer') %>
