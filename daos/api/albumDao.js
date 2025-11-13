@@ -55,46 +55,48 @@ const albumDao = {
         const band = req.body.band
         const label = req.body.label
 
-        const data = {
+        let data = {
             artist_id: null,
             band_id: null,
             lable_id: null
         }
-
-        let artist_id
+        let artist = {}
         
         // check in artist table
         con.execute(
             `SELECT * FROM artist;`,
             (error, rows)=> {
-                let artist
                 if (!error) {
                     // find artist where fName and lName are the same as artist.fName and artist.lName
-                    if (fName != null && lName != null) {
+                    if (fName != null || lName != null) {
                         artist = rows.find(artist => artist.fName == fName && artist.lName == lName)
                         // if artist is undefined add to artist table
                         if (artist == undefined) {
                             con.execute(
-                                `INSERT INTO artist SET fname = '${fName}',
-                                lName = '${lName}';`,
+                                `INSERT INTO artist SET fname = "${fName}",
+                                lName = "${lName}";`,
                                 (error, dbres)=> {
                                     if (!error) {
-                                        console.log(dbres.insterId)
                                         data.artist_id = dbres.insertId
+                                        console.log(data.artist_id)
                                     } else {
                                         console.log(error)
                                     }
                                 }
                             )
-                        } else {
-                            data.artist_id = artist.artist_id
                         }
+                        
                     }
-                    res.json(data)
                 }
-                
             }
         )
+        // data.artist_id = artist.artist_id
+        data = {
+            artist_id: artist.artist_id,
+            band_id: null,
+            lable_id: null
+        }
+        res.json(data)
         
     }
 }
