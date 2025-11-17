@@ -58,7 +58,7 @@ const albumDao = {
         let data = {
             artist_id: null,
             band_id: null,
-            lable_id: null
+            label_id: null
         }
         let artist = {}
         
@@ -66,36 +66,44 @@ const albumDao = {
         con.execute(
             `SELECT * FROM artist;`,
             (error, rows)=> {
-                if (!error) {
-                    // find artist where fName and lName are the same as artist.fName and artist.lName
-                    if (fName != null || lName != null) {
-                        artist = rows.find(artist => artist.fName == fName && artist.lName == lName)
-                        // if artist is undefined add to artist table
-                        if (artist == undefined) {
-                            con.execute(
-                                `INSERT INTO artist SET fname = "${fName}",
-                                lName = "${lName}";`,
-                                (error, dbres)=> {
-                                    if (!error) {
-                                        data.artist_id = dbres.insertId
-                                        console.log(data.artist_id)
-                                    } else {
-                                        console.log(error)
+
+                data.artist_id =()=> {
+                    if (!error) {
+                        // find artist where fName and lName are the same as artist.fName and artist.lName
+                        if (fName != null || lName != null) {
+                            artist = rows.find(artist => artist.fName == fName && artist.lName == lName)
+                            // if artist is undefined add to artist table
+                            console.log(`artist: ${artist}`)
+                            if (artist == undefined) {
+                                con.execute(
+                                    `INSERT INTO artist SET fname = "${fName}",
+                                    lName = "${lName}";`,
+                                    (error, dbres)=> {
+                                        if (!error) {
+                                            artist.artist_id = dbres.insertId
+                                            console.log(`artist has bee added. artist id is ${artist.artist_id}`)
+                                        } else {
+                                            console.log(error)
+                                        }
                                     }
-                                }
-                            )
-                        }
-                        
+                                )
+                            }
+                            
+                        } 
                     }
+                    return artist.artist_id
                 }
+                
+                // return data.artist_id
             }
         )
+        console.log(`the artist_id is ${data.artist_id}`)
         // data.artist_id = artist.artist_id
-        data = {
-            artist_id: artist.artist_id,
-            band_id: null,
-            lable_id: null
-        }
+        // data = {
+        //     artist_id: artist.artist_id,
+        //     band_id: null,
+        //     label_id: null
+        // }
         res.json(data)
         
     }
